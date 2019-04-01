@@ -1,0 +1,28 @@
+{
+  "name": "express-dummy-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OleksivO/express-dummy-server.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OleksivO/express-dummy-server/issues"
+  },
+  "homepage": "https://github.com/OleksivO/express-dummy-server#readme",
+  "devDependencies": {
+    "@types/express": "^4.16.1",
+    "nodemon": "^1.18.10"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4"
+  }
+}
