@@ -1,15 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2cd2c0e6-7875-440a-93a3-b1f9882ec68c" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/controllers/admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/controllers/admin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/cart.json" beforeDir="false" afterPath="$PROJECT_DIR$/data/cart.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/product.js" beforeDir="false" afterPath="$PROJECT_DIR$/models/product.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/admin.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/admin.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/views/admin/edit-product.ejs" beforeDir="false" afterPath="$PROJECT_DIR$/views/admin/edit-product.ejs" afterDir="false" />
-    </list>
+    <list default="true" id="2cd2c0e6-7875-440a-93a3-b1f9882ec68c" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
     <ignored path="$PROJECT_DIR$/tmp/" />
@@ -43,7 +35,7 @@
           <entry key="hbs" value="1" />
           <entry key="html" value="6" />
           <entry key="js" value="60" />
-          <entry key="json" value="11" />
+          <entry key="json" value="12" />
           <entry key="pug" value="4" />
         </counts>
       </usages-collector>
@@ -53,7 +45,7 @@
           <entry key="EJS" value="63" />
           <entry key="HTML" value="6" />
           <entry key="Handlebars/Mustache" value="1" />
-          <entry key="JSON" value="10" />
+          <entry key="JSON" value="11" />
           <entry key="Jade" value="4" />
           <entry key="JavaScript" value="60" />
           <entry key="PLAIN_TEXT" value="3" />
@@ -67,7 +59,7 @@
           <entry key="gitignore" value="24" />
           <entry key="html" value="993" />
           <entry key="js" value="5435" />
-          <entry key="json" value="126" />
+          <entry key="json" value="156" />
           <entry key="pug" value="320" />
         </counts>
       </usages-collector>
@@ -76,7 +68,7 @@
           <entry key="CSS" value="49" />
           <entry key="EJS" value="1156" />
           <entry key="HTML" value="1000" />
-          <entry key="JSON" value="126" />
+          <entry key="JSON" value="156" />
           <entry key="Jade" value="320" />
           <entry key="JavaScript" value="5428" />
           <entry key="PLAIN_TEXT" value="24" />
@@ -95,11 +87,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="57" column="4" lean-forward="true" selection-start-line="57" selection-start-column="4" selection-end-line="57" selection-end-column="4" />
+            <state relative-caret-position="-9">
+              <caret line="36" column="14" lean-forward="true" selection-start-line="36" selection-start-column="14" selection-end-line="36" selection-end-column="14" />
             </state>
           </provider>
         </entry>
@@ -107,8 +99,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/views/admin/edit-product.ejs">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="343">
-              <caret line="24" column="47" selection-start-line="24" selection-start-column="47" selection-end-line="24" selection-end-column="47" />
+            <state relative-caret-position="390">
+              <caret line="26" column="10" lean-forward="true" selection-start-line="26" selection-start-column="10" selection-end-line="26" selection-end-column="10" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="9" column="17" lean-forward="true" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -171,7 +172,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/utils/path.js" />
         <option value="$PROJECT_DIR$/views/page-not-found.html" />
         <option value="$PROJECT_DIR$/public/css/product.css" />
@@ -198,10 +198,11 @@
         <option value="$PROJECT_DIR$/views/admin/products.ejs" />
         <option value="$PROJECT_DIR$/routes/admin.js" />
         <option value="$PROJECT_DIR$/models/product.js" />
-        <option value="$PROJECT_DIR$/views/admin/edit-product.ejs" />
         <option value="$PROJECT_DIR$/data/products.json" />
         <option value="$PROJECT_DIR$/controllers/admin.js" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/views/admin/edit-product.ejs" />
+        <option value="$PROJECT_DIR$/package.json" />
       </list>
     </option>
   </component>
@@ -345,12 +346,12 @@
       <workItem from="1566755617182" duration="75000" />
       <workItem from="1567352397609" duration="2572000" />
       <workItem from="1567406291573" duration="79000" />
-      <workItem from="1569687531189" duration="2425000" />
+      <workItem from="1569687531189" duration="2684000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="41326000" />
+    <option name="totallyTimeSpent" value="41585000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1440" height="900" extended-state="0" />
@@ -419,13 +420,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="2" column="39" lean-forward="true" selection-start-line="2" selection-start-column="39" selection-end-line="2" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" column="28" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="28" />
         </state>
       </provider>
     </entry>
@@ -577,13 +571,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/views/admin/edit-product.ejs">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="343">
-          <caret line="24" column="47" selection-start-line="24" selection-start-column="47" selection-end-line="24" selection-end-column="47" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/controllers/admin.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="199">
@@ -593,8 +580,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="57" column="4" lean-forward="true" selection-start-line="57" selection-start-column="4" selection-end-line="57" selection-end-column="4" />
+        <state relative-caret-position="-9">
+          <caret line="36" column="14" lean-forward="true" selection-start-line="36" selection-start-column="14" selection-end-line="36" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/views/admin/edit-product.ejs">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="390">
+          <caret line="26" column="10" lean-forward="true" selection-start-line="26" selection-start-column="10" selection-end-line="26" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="17" lean-forward="true" selection-start-line="9" selection-start-column="17" selection-end-line="9" selection-end-column="17" />
         </state>
       </provider>
     </entry>
