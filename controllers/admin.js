@@ -14,57 +14,34 @@ exports.getEditProduct = (req, res, next) => {
        return res.redirect('/')
     }
     const productId = req.params['productId'];
-    req.user.getProducts({where: {id: productId}})
-        .then(products => {
-            if(!products) {
+    Product.findById(productId)
+        .then(product => {
+            if(!product) {
                 return res.redirect('/');
             }
             res.render('admin/edit-product', {
                 pageTitle: 'Edit Product',
                 path: '/admin/edit-product',
                 editing: editMode,
-                product: products[0]
+                product: product
             });
         })
         .catch(err => console.error('DB error', err))
-    // Product.findByPk(productId)
-    //     .then(product => {
-    //         if(!product) {
-    //             return res.redirect('/');
-    //         }
-    //         res.render('admin/edit-product', {
-    //             pageTitle: 'Edit Product',
-    //             path: '/admin/edit-product',
-    //             editing: editMode,
-    //             product: product
-    //         });
-    //     })
-    //     .catch(err => console.error('DB error', err))
 };
 
 exports.postEditProduct = (req, res, next) => {
     const {productId, title, imageUrl, price, description} = req.body;
-
-    Product.findByPk(productId)
-        .then(product => {
-            product.title = title;
-            product.description = description;
-            product.price = price;
-            product.imageUrl = imageUrl;
-            return product.save();
-        })
+    const product = new Product(title, price, description, imageUrl, productId);
+    product.save(productId)
         .then(() => res.redirect('/admin/products'))
         .catch(err => console.error('DB error', err));
 };
 
 exports.postAddProduct = (req, res, next) => {
     const {title, imageUrl, price, description} = req.body;
-    req.user.createProduct({
-        title,
-        price,
-        imageUrl,
-        description
-    })
+    const product = new Product(title, price, description, imageUrl);
+    product
+        .save()
         .then(() => res.redirect('/admin/products'))
         .catch(error => console.error('DB error', error))
     // Product.create({
@@ -79,7 +56,7 @@ exports.postAddProduct = (req, res, next) => {
 };
 
 exports.getProducts = (req, res, next) => {
-    req.user.getProducts()
+    Product.fetchAll()
         .then(products => {
             res.render('admin/products', {
                 prods: products,
@@ -101,7 +78,7 @@ exports.getProducts = (req, res, next) => {
 
 exports.postDeleteProduct = (req, res, next) => {
     const prodId = req.body.productId;
-    Product.findByPk(prodId)
+    Product.findById(prodId)
         .then(product => product.destroy())
         .then(() => res.redirect('/admin/products'))
         .catch(err => console.error('DB error', err));
