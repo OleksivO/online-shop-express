@@ -31,15 +31,28 @@ exports.getEditProduct = (req, res, next) => {
 
 exports.postEditProduct = (req, res, next) => {
     const {productId, title, imageUrl, price, description} = req.body;
-    const product = new Product(title, price, description, imageUrl, productId);
-    product.save(productId)
+    // const product = new Product(title, price, description, imageUrl, productId);
+    Product.findById(productId)
+        .then(product => {
+            product.title = title;
+            product.price = price;
+            product.description = description;
+            product.imageUrl = imageUrl;
+            return product.save()
+        })
         .then(() => res.redirect('/admin/products'))
-        .catch(err => console.error('DB error', err));
+        .catch(err => console.error('DB error', err))
 };
 
 exports.postAddProduct = (req, res, next) => {
     const {title, imageUrl, price, description} = req.body;
-    const product = new Product(title, price, description, imageUrl, null, req.user._id);
+    const product = new Product({
+        title,
+        price,
+        description,
+        imageUrl,
+        userId: req.user
+    });
     product
         .save()
         .then(() => res.redirect('/admin/products'))
@@ -47,7 +60,9 @@ exports.postAddProduct = (req, res, next) => {
 };
 
 exports.getProducts = (req, res, next) => {
-    Product.fetchAll()
+    Product
+        .find()
+        .populate('userId')
         .then(products => {
             res.render('admin/products', {
                 prods: products,
