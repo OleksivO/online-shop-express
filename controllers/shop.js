@@ -7,7 +7,8 @@ exports.getProducts = (req, res, next) => {
             res.render('shop/product-list', {
                 prods: products,
                 pageTitle: 'All products',
-                path: '/products'
+                path: '/products',
+                isAuthenticated: req.session.isLoggedIn
             });
         })
         .catch(err => console.error('DB error', err));
@@ -20,7 +21,8 @@ exports.getProduct = (req, res, next) => {
             res.render('shop/product-detail', {
                 product: product,
                 pageTitle: product.title,
-                path: '/products'
+                path: '/products',
+                isAuthenticated: req.session.isLoggedIn
             })
         })
         .catch(err => console.error('DB error', err));
@@ -32,7 +34,8 @@ exports.getIndex = (req, res, next) => {
             res.render('shop/index', {
                 prods: products,
                 pageTitle: 'Shop',
-                path: '/'
+                path: '/',
+                isAuthenticated: req.session.isLoggedIn
             });
         })
         .catch(err => console.error('DB error', err));
@@ -47,7 +50,8 @@ exports.getCart = (req, res, next) => {
             res.render('shop/cart', {
                 path: '/cart',
                 pageTitle: 'Your Cart',
-                products: products
+                products: products,
+                isAuthenticated: req.session.isLoggedIn
             })
         })
         .catch(err => console.error('DB error', err))
@@ -56,21 +60,21 @@ exports.getCart = (req, res, next) => {
 exports.postCart = (req, res, next) => {
     const prodId = req.body.productId;
     Product.findById(prodId)
-        .then(product => req.user.addToCart(product))
+        .then(product => req.session.user.addToCart(product))
         .then(() => res.redirect('/cart'))
         .catch(err => console.error('DB error', err))
 };
 
 exports.postCartDeleteProduct = (req, res, next) => {
     const prodId = req.body.productId;
-    req.user.removeFromCart(prodId)
+    req.session.user.removeFromCart(prodId)
         .then(() => res.redirect('/cart'))
         .catch(err => console.error('DB error', err));
 };
 
 
 exports.postOrder = (req, res, next) => {
-    req.user
+    req.session.user
         .populate('cart.items.productId')
         .execPopulate()
         .then(user => {
@@ -80,26 +84,27 @@ exports.postOrder = (req, res, next) => {
             }));
             const order = new Order({
                 user: {
-                    name: req.user.name,
-                    userId: req.user
+                    name: req.session.user.name,
+                    userId: req.session.user
                 },
                 products: products
             });
 
             return order.save()
         })
-        .then(() => req.user.clearCart())
+        .then(() => req.session.user.clearCart())
         .then(() => res.redirect('/orders'))
         .catch(err => console.error('DB error', err))
 };
 
 exports.getOrders = (req, res, next) => {
-    Order.find({'user.userId': req.user._id})
+    Order.find({'user.userId': req.session.user._id})
         .then(orders => {
             res.render('shop/orders', {
                 path: '/orders',
                 pageTitle: 'Your Orders',
-                orders: orders
+                orders: orders,
+                isAuthenticated: req.session.isLoggedIn
             })
         })
         .catch(err => console.error('DB error', err))
@@ -108,6 +113,7 @@ exports.getOrders = (req, res, next) => {
 exports.getCheckout = (req, res, next) => {
     res.render('shop/checkout', {
         path: '/checkout',
-        pageTitle: 'Checkout'
+        pageTitle: 'Checkout',
+        isAuthenticated: req.session.isLoggedIn
     })
 };

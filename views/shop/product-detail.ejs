@@ -11,6 +11,10 @@
     </section>
     <h2><%= product.price %></h2>
     <p><%= product.description %></p>
-    <%- include('../includes/add-to-cart.ejs')%>
+    <%if (isAuthenticated) { %>
+        <div class="card__actions">
+            <%- include('../includes/add-to-cart.ejs', {product})%>
+        </div>
+    <% } %>
 </main>
 <%- include('../includes/end.ejs') %>
