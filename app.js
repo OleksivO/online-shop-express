@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
+const csurf = require('csurf');
 
 const User = require('./models/user');
 
@@ -16,6 +17,8 @@ const store = new MongoDBStore({
     uri: MONGODB_URI,
     collection: 'sessions'
 });
+
+const csurfProtection = csurf();
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
@@ -35,6 +38,8 @@ app.use(session({
         store: store
     })
 );
+
+app.use(csurfProtection);
 
 app.use((req, res, next) => {
     if (!req.session.user) {
@@ -57,16 +62,6 @@ app.use(errorsController.getPageNotFound);
 mongoose
     .connect(MONGODB_URI)
     .then(() => {
-        User.findOne().then(user => {
-           if(!user) {
-               const user = new User({
-                   name: 'Test',
-                   email: 'test@test.com',
-                   cart: {items: []}
-               });
-               user.save();
-           }
-        });
         app.listen(3000)
     })
     .catch(error => console.error('Error DB', error));
