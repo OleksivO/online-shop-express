@@ -50,7 +50,14 @@ app.use((req, res, next) => {
             req.user = user;
             next();
         })
-        .catch(err => console.log('DB error', err));
+        .catch(err => console.log(err));
+});
+
+app.use((req, res, next) => {
+    console.log('Req', req.csrfToken());
+    res.locals.isAuthenticated = req.session.isLoggedIn;
+    res.locals.csrfToken = req.csrfToken();
+    next()
 });
 
 app.use('/admin', adminRoutes);
