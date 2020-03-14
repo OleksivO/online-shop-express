@@ -1,6 +1,14 @@
 const bcrypt = require('bcryptjs');
+const nodemailer = require('nodemailer');
+const sendGridTransport = require('nodemailer-sendgrid-transport');
+
 const User = require('../models/user');
 
+const transporter = nodemailer.createTransport(sendGridTransport({
+    auth: {
+        api_key: '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'
+    }
+}));
 
 exports.getLogin = (req, res, next) => {
     const messages = req.flash('error');
@@ -74,7 +82,15 @@ exports.postSignup = (req, res, next) => {
 
                     return user.save();
                 })
-                .then(() => res.redirect('/login'))
+                .then((user) => {
+                    res.redirect('/login')
+                    return transporter.sendMail({
+                        to: email,
+                        from: 'info@express-shop.com',
+                        subject: 'SignUp succeeded ',
+                        html: '<h1>Your account was successfully registered!</h1>'
+                    });
+                })
         })
         .catch(error => console.error('Error DB', error))
 };
