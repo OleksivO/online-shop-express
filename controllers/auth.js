@@ -3,9 +3,12 @@ const User = require('../models/user');
 
 
 exports.getLogin = (req, res, next) => {
+    const messages = req.flash('error');
+    const errorMessage = messages.length > 0 ? messages[0] : null;
     res.render('auth/login', {
         path: '/auth/login',
-        pageTitle: 'Login'
+        pageTitle: 'Login',
+        errorMessage: errorMessage
     })
 };
 
@@ -14,7 +17,8 @@ exports.postLogin = (req, res, next) => {
     User.findOne({email})
         .then(user => {
             if (!user) {
-                return res.redirect('/login');
+                req.flash('error', 'Invalid email or password.');
+                return res.session.save().then(() => res.redirect('/login'))
             }
             bcrypt.compare(password, user.password)
                 .then(doMatch => {
@@ -26,7 +30,8 @@ exports.postLogin = (req, res, next) => {
                         });
                     }
 
-                    return res.redirect('/login');
+                    req.flash('error', 'Invalid email or password.');
+                    return res.session.save().then(() => res.redirect('/login'))
                 })
                 .catch(error => res.redirect('/login'));
         })
@@ -41,9 +46,12 @@ exports.postLogout = (req, res, next) => {
 
 
 exports.getSignup = (req, res, next) => {
+    const messages = req.flash('error');
+    const errorMessage = messages.length > 0 ? messages[0] : null;
     res.render('auth/signup', {
         path: '/signup',
-        pageTitle: 'Signup'
+        pageTitle: 'Signup',
+        errorMessage: errorMessage
     });
 };
 exports.postSignup = (req, res, next) => {
@@ -52,7 +60,8 @@ exports.postSignup = (req, res, next) => {
         .findOne({email: email})
         .then(userData => {
             if (userData) {
-                return res.redirect('/signup')
+                req.flash('error', 'Invalid email or password.');
+                return req.session.save().then(() => res.redirect('/signup'));
             }
             return bcrypt.hash(password, 12)
                 .then(hashedPassword => {

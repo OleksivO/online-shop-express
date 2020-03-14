@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const csurf = require('csurf');
+const flash = require('connect-flash');
 
 const User = require('./models/user');
 
@@ -53,8 +54,9 @@ app.use((req, res, next) => {
         .catch(err => console.log(err));
 });
 
+app.use(flash());
+
 app.use((req, res, next) => {
-    console.log('Req', req.csrfToken());
     res.locals.isAuthenticated = req.session.isLoggedIn;
     res.locals.csrfToken = req.csrfToken();
     next()
