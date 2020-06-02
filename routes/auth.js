@@ -11,19 +11,16 @@ const authController = require('../controllers/auth');
 const isAuth = require('../middleware/is-auth');
 
 router.get('/login',
-    // [
-    //     body('email')
-    //         .isEmail()
-    //         .withMessage('Please, enter a valid email'),
-    //     body('password', 'Password should be at least 6 characters long')
-    //         .isLength({min: 6})
-    //         .isAlphanumeric()
-    //         .custom((value, {req}) => {
-    //             const password = bcrypt.hash(value, 12);
-    //             User.findOne({})
-    //         })
-    //
-    // ],
+    [
+        body('email')
+            .isEmail()
+            .withMessage('Please, enter a valid email')
+            .normalizeEmail(),
+        body('password', 'Password should be at least 6 characters long')
+            .isLength({min: 6})
+            .isAlphanumeric()
+            .trim()
+    ],
     authController.getLogin);
 router.get('/signup', authController.getSignup);
 router.post('/signup',
@@ -38,9 +35,10 @@ router.post('/signup',
                             return Promise.reject('User with such a password already exists.')
                         }
                     })
-            }),
-        body('password', 'Password should be at least 6 characters long').isLength({min: 6}).isAlphanumeric(),
-        body('confirmPassword').custom((value, {req}) => {
+            })
+            .normalizeEmail(),
+        body('password', 'Password should be at least 6 characters long').isLength({min: 6}).isAlphanumeric().trim(),
+        body('confirmPassword').trim().custom((value, {req}) => {
             if (value !== req.body.password) {
                 throw new Error('Passwords have to match!')
             }
