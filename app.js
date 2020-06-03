@@ -41,19 +41,6 @@ app.use(session({
 );
 
 app.use(csurfProtection);
-
-app.use((req, res, next) => {
-    if (!req.session.user) {
-        return next();
-    }
-    User.findById(req.session.user._id)
-        .then(user => {
-            req.user = user;
-            next();
-        })
-        .catch(err => console.log(err));
-});
-
 app.use(flash());
 
 app.use((req, res, next) => {
@@ -62,15 +49,43 @@ app.use((req, res, next) => {
     next()
 });
 
+app.use((req, res, next) => {
+    if (!req.session.user) {
+        return next();
+    }
+    User.findById(req.session.user._id)
+        .then(user => {
+            if(!user) {
+                return next;
+            }
+            req.user = user;
+            next();
+        })
+        .catch(err => {
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
+        })
+});
+
 app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 app.use(authRoutes);
+app.use('/500', errorsController.get500);
 
 app.use(errorsController.getPageNotFound);
+
+app.use((error, req, res, next) => {
+ res.render('500', { pageTitle: 'Internal server error', path: '/500', isAuthenticated: req.session.isLoggedIn})
+});
 
 mongoose
     .connect(MONGODB_URI)
     .then(() => {
         app.listen(3000)
     })
-    .catch(error => console.error('Error DB', error));
+    .catch(err => {
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    })

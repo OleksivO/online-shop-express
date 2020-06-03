@@ -2,7 +2,7 @@ const crypto = require('crypto');
 const bcrypt = require('bcryptjs');
 const nodemailer = require('nodemailer');
 const sendGridTransport = require('nodemailer-sendgrid-transport');
-const {validationResult} = require('express-validator/check');
+const {validationResult} = require('express-validator');
 
 const User = require('../models/user');
 
@@ -66,9 +66,17 @@ exports.postLogin = (req, res, next) => {
                         validationErrors: []
                     })
                 })
-                .catch(error => res.redirect('/login'));
+                .catch(err => {
+                    const error = new Error(err);
+                    error.httpStatusCode = 500;
+                    return next(error);
+                })
         })
-    .catch(error => console.error('Error DB', error));
+        .catch(err => {
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
+        })
 };
 
 exports.postLogout = (req, res, next) => {
@@ -121,7 +129,11 @@ exports.postSignup = (req, res, next) => {
                 html: '<h1>Your account was successfully registered!</h1>'
             });
         })
-        .catch(error => console.error('Error DB', error))
+        .catch(err => {
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
+        })
 };
 
 exports.getReset = (req, res, next) => {
@@ -185,7 +197,11 @@ exports.getNewPassword = (req, res, next) => {
                 passwordToken: token
             })
         })
-        .catch(error => console.error(error));
+        .catch(err => {
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
+        })
 };
 
 exports.postNewPassword = (req, res, next) => {
@@ -211,7 +227,9 @@ exports.postNewPassword = (req, res, next) => {
         .then(() => {
             res.redirect('/login')
         })
-        .catch(error => {
-            console.log(error);
+        .catch(err => {
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
         })
 };
